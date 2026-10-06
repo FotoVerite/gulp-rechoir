@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="http://gulpjs.com">
+  <a href="https://gulpjs.com">
     <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
   </a>
 </p>
@@ -50,6 +50,16 @@ An error with a `failures` property will be thrown if the module loader(s) confi
 
 If a loader is already registered, this will simply return `true`.
 
+## Strict No LLM / No AI Policy
+
+No LLMs for issues.
+
+No LLMs for patches / pull requests.
+
+No LLMs for comments on the bug tracker, including translation.
+
+English is encouraged, but not required. You are welcome to post in your native language and rely on others to have their own translation tools of choice to interpret your words.
+
 ## License
 
 MIT
@@ -59,15 +69,9 @@ MIT
 [npm-url]: https://www.npmjs.com/package/rechoir
 [npm-image]: https://img.shields.io/npm/v/rechoir.svg?style=flat-square
 
-[ci-url]: https://github.com/gulpjs/rechoir/actions?query=workflow:dev
-[ci-image]: https://img.shields.io/github/workflow/status/gulpjs/rechoir/dev?style=flat-square
+[ci-url]: https://github.com/gulpjs/rechoir/actions/workflows/dev.yml
+[ci-image]: https://img.shields.io/github/actions/workflow/status/gulpjs/rechoir/dev.yml?style=flat-square
 
 [coveralls-url]: https://coveralls.io/r/gulpjs/rechoir
-[coveralls-image]: https://img.shields.io/coveralls/gulpjs/rechoir/master.svg
-<!-- prettier-ignore-end -->
-
-<!-- prettier-ignore-start -->
-[interpret]: https://github.com/gulpjs/interpret
-[require.extensions]: https://nodejs.org/api/modules.html#modules_require_extensions
-[liftoff]: https://github.com/js-cli/js-liftoff
+[coveralls-image]: https://img.shields.io/coveralls/gulpjs/rechoir/main.svg?style=flat-square
 <!-- prettier-ignore-end -->
