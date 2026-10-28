@@ -214,10 +214,8 @@ describe("rechoir", function () {
         },
         testFilePath,
       );
-      var result = (function () {
-        return require(testFilePath);
-      })();
-      assert.ok(!(result instanceof Error));
+
+      assert.doesNotThrow(() => require(testFilePath));
     });
 
     it("should return true if the module loader for the specified extension is already available", function () {
@@ -243,7 +241,8 @@ describe("rechoir", function () {
         { ".stub": "../../require-stub" },
         "./test/fixtures/folder.with.dots/test.stub",
       );
-      assert.ok(require("./fixtures/folder.with.dots/test.stub"), {
+
+      var expected = {
         data: {
           trueKey: true,
           falseKey: false,
@@ -251,7 +250,12 @@ describe("rechoir", function () {
             subProp: 1,
           },
         },
-      });
+      };
+
+      assert.deepStrictEqual(
+        require("./fixtures/folder.with.dots/test.stub"),
+        expected,
+      );
     });
 
     it("should register a module loader even if the extension is single character (issue #38)", function () {
@@ -263,10 +267,7 @@ describe("rechoir", function () {
         fpath,
       );
 
-      var result = (function () {
-        return require(fpath);
-      })();
-      assert.ok(!(result instanceof Error));
+      assert.doesNotThrow(() => require(fpath));
     });
 
     it("should register a module loader for the specified extension with cwd", function () {
@@ -277,10 +278,8 @@ describe("rechoir", function () {
         path.join("cwd", "test.foo"),
         path.join(__dirname, "fixtures"),
       );
-      var result = (function () {
-        return require(testFilePath);
-      })();
-      assert.ok(!(result instanceof Error));
+
+      assert.doesNotThrow(() => require(testFilePath));
     });
   });
 });
