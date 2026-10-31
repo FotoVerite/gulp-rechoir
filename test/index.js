@@ -127,15 +127,13 @@ describe("rechoir", function () {
       assert.strictEqual(register(__dirname, "../lib/normalize"), normalize);
     });
 
-    it("should call a register function if provided, passing in the module", function () {
-      var called = false;
+    it("should call a register function if provided, passing in the module", function (t) {
+      var callback = t.mock.fn();
 
-      register(__dirname, "../lib/normalize", function (attempt) {
-        assert.strictEqual(attempt, normalize);
-        called = true;
-      });
+      register(__dirname, "../lib/normalize", callback);
 
-      assert.strictEqual(called, true);
+      assert.strictEqual(callback.mock.callCount(), 1);
+      assert.strictEqual(callback.mock.calls[0].arguments[0], normalize);
     });
 
     it("should return an error if the specified module cannot be registered", function () {
@@ -165,14 +163,15 @@ describe("rechoir", function () {
     });
 
     it("should throw if a module loader cannot be found or loaded", function () {
-      assert.throws(() =>
-        rechoir.prepare(
+      assert.throws(() => {
+        (rechoir.prepare(
           {
             ".stub": ["nothere"],
           },
           testFilePath,
         ),
-      );
+          require(testFilePath));
+      });
     });
 
     describe("all module loaders that were attempted failed to load", function () {
@@ -182,7 +181,7 @@ describe("rechoir", function () {
 
       // Check the failure entries in the thrown or returned error object.
       function checkFailures(e) {
-        assert.ok(e.failures instanceof Array);
+        assert.ok(Array.isArray(e.failures));
         assert.ok(e.failures[0].error instanceof Error);
         assert.strictEqual(e.failures[0].moduleName, "nothere");
         assert.strictEqual(e.failures[0].module, null);
@@ -208,14 +207,16 @@ describe("rechoir", function () {
     });
 
     it("should register a module loader for the specified extension", function () {
-      rechoir.prepare(
-        {
-          ".stub": ["nothere", "../require-stub"],
-        },
-        testFilePath,
-      );
+      assert.doesNotThrow(() => {
+        rechoir.prepare(
+          {
+            ".stub": ["nothere", "../require-stub"],
+          },
+          testFilePath,
+        );
 
-      assert.doesNotThrow(() => require(testFilePath));
+        require(testFilePath);
+      });
     });
 
     it("should return true if the module loader for the specified extension is already available", function () {
